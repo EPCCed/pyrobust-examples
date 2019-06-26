@@ -13,7 +13,7 @@ License: MIT
 from pyrobust import robust                                            
 from pyrobust import GECCO2017                                                                             
 
-def 1d_objective_func(x):
+def objective_func(x):
     dims = 1                                             
 
     tmp = 0
@@ -45,7 +45,7 @@ def main():
 
     # create problem
     MyProblem = GECCO2017.GECCO2017(bounds, disturbance_bounds, 
-                                    1d_objective_func, crossover_rate,
+                                    objective_func, crossover_rate,
                                     mutation_rate, mutation_width)
 
     # create optimiser
