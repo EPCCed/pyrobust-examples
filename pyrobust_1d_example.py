@@ -29,7 +29,8 @@ def main():
     dims = 1 
     bounds = [0, 10] 
     disturbance_bounds = [-1, 1]
-    # evolution parameters
+
+    ## evolution parameters
     crossover_rate =  0.8
     mutation_width = 0.1 * (bounds[1] - bounds[0]) # for Gaussian mutation
     mutation_rate = 0.5
