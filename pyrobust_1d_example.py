@@ -1,7 +1,12 @@
-"""Pyrobust 1d TP1 (Branke&Fei 2016) example 
+"""pyrobust 1d example using TP1 function from:
+
+Branke J., Fei X. (2016) 
+Efficient Sampling When Searching for Robust Solutions. 
+In: Handl J., Hart E., Lewis P., López-Ibáñez M., Ochoa G., Paechter B. (eds) 
+Parallel Problem Solving from Nature – PPSN XIV. PPSN 2016. 
+Lecture Notes in Computer Science, vol 9921. Springer, Cham
+DOI: 10.1007/978-3-319-45823-6 22) 
                                                                                 
-PYTHON version based on source code from University of Exeter                   
-J. Fieldsend, K. Alayahya, K. Doherty                                           
                                                                                 
 Authors: N. Banglawala, EPCC, 2019                                              
 License: MIT                                                                      
@@ -10,10 +15,13 @@ License: MIT
                                                                                 
 ###############################################################################
 
-from pyrobust import robust                                            
-from pyrobust import GECCO2017                                                                             
+from pyrobust import robust                 
+from pyrobust import robust_default_problem as rdp 
 
 def objective_func(x):
+    """Objective function to minimise. TP1 function (1d) from Branke & Fei 
+    2016."""
+
     dims = 1                                             
 
     tmp = 0
@@ -25,32 +33,26 @@ def objective_func(x):
 
 def main():
 
-    # set GECCO2017 problem parameters here
+    # set default problem parameters here
     dims = 1 
     bounds = [0, 10] 
     disturbance_bounds = [-1, 1]
 
-    ## evolution parameters
-    crossover_rate =  0.8
-    mutation_width = 0.1 * (bounds[1] - bounds[0]) # for Gaussian mutation
-    mutation_rate = 0.5
-
     # set robust optimiser parameters here 
-    max_pop_size     = 2500 # max population size   
+    max_pop_size     = 2500 # max population size 
     max_evalations   = 2500 # max number of evaluations of objective function
     initial_pop_size = 10   # size of initial population
 
     # set robust optimisation options here
-    use_history = None          # ['individual', 'neighbour']
+    use_history = None          # ['ind', 'nbr']
     resample = 'wasserstein'    #
 
     # create problem
-    MyProblem = GECCO2017.GECCO2017(bounds, disturbance_bounds, 
-                                    objective_func, crossover_rate,
-                                    mutation_rate, mutation_width)
+    MyProblem = rdp.RobustDefaultProblem(bounds, disturbance_bounds, 
+                                         objective_func) 
 
     # create optimiser
-    optimiser = robust.robust(max_pop_size, MyProblem, use_history=use_history,
+    optimiser = robust.Robust(max_pop_size, MyProblem, use_history=use_history,
                               resample=resample)
 
     # create initial population
@@ -60,7 +62,7 @@ def main():
     optimiser.run(max_evaluations)
 
     # get best solutions
-    #best_results =  optimiser.get_best() 
+    best_results =  optimiser.get_best(10) 
 
 
 if __name__ == "__main__":
