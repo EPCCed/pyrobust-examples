@@ -15,14 +15,15 @@ License: MIT
                                                                                 
 ###############################################################################
 
+import numpy as np
+
+
 from pyrobust import robust                 
 from pyrobust import robust_default_problem as rdp 
 
 def objective_func(x):
     """Objective function to minimise. TP1 function (1d) from Branke & Fei 
     2016."""
-
-    dims = 1                                             
 
     tmp = 0
     if x < 8:                                                                   
@@ -34,13 +35,12 @@ def objective_func(x):
 def main():
 
     # set default problem parameters here
-    dims = 1 
-    bounds = [0, 10] 
-    disturbance_bounds = [-1, 1]
+    bounds = [[0], [10]] 
+    disturbance_bounds = [[-1], [1]]
 
     # set robust optimiser parameters here 
     max_pop_size     = 2500 # max population size 
-    max_evalations   = 2500 # max number of evaluations of objective function
+    max_evaluations   = 2500 # max number of evaluations of objective function
     initial_pop_size = 10   # size of initial population
 
     # set robust optimisation options here
@@ -58,11 +58,16 @@ def main():
     # create initial population
     optimiser.create_initial_population(initial_pop_size)
 
-    # run optimiser
+    # run optimiser, returns True if all runs ok
     optimiser.run(max_evaluations)
 
-    # get best solutions
-    best_results =  optimiser.get_best(10) 
+    # get best solutions: (x, robust fitness estimate)
+    num_best = 3
+    x_best, xrobfit_best =  optimiser.get_best(num_best) 
+    final_results = zip(x_best.tolist(), xrobfit_best.tolist())
+
+    print("top {} results (x, fitness estimate):\n {} \n".format(
+                                               num_best, list(final_results) ))
 
 
 if __name__ == "__main__":
