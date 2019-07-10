@@ -44,8 +44,9 @@ def main():
     initial_pop_size = 10   # size of initial population
 
     # set robust optimisation options here
-    use_history = None          # ['ind', 'nbr']
-    resample = 'wasserstein'    #
+    use_history = False
+    update_history = False
+    resample = 'wasserstein'
 
     # create problem
     MyProblem = rdp.RobustDefaultProblem(bounds, disturbance_bounds, 
