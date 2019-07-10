@@ -54,7 +54,7 @@ def main():
 
     # create optimiser
     optimiser = robust.Robust(max_pop_size, MyProblem, use_history=use_history,
-                              resample=resample)
+                              update_history=update_history, resample=resample)
 
     # create initial population
     optimiser.create_initial_population(initial_pop_size)
