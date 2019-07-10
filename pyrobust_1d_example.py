@@ -21,8 +21,9 @@ import numpy as np
 from pyrobust import robust                 
 from pyrobust import robust_default_problem as rdp 
 
-def objective_func(x):
-    """Objective function to minimise. TP1 function (1d) from Branke & Fei 
+
+def fitness_func(x):
+    """Fitness or objective function to minimise. TP1 function (1d) from Branke & Fei 
     2016."""
 
     tmp = 0
@@ -50,7 +51,7 @@ def main():
 
     # create problem
     MyProblem = rdp.RobustDefaultProblem(bounds, disturbance_bounds, 
-                                         objective_func) 
+                                         fitness_func) 
 
     # create optimiser
     optimiser = robust.Robust(max_pop_size, MyProblem, use_history=use_history,
