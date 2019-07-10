@@ -64,10 +64,10 @@ def main():
 
     # get best solutions: (x, robust fitness estimate)
     num_best = 3
-    x_best, xrobfit_best =  optimiser.get_best(num_best) 
-    final_results = zip(x_best.tolist(), xrobfit_best.tolist())
+    x, robust_fitness_estimate =  optimiser.get_best(num_best) 
+    final_results = zip(x.tolist(), robust_fitness_estimate.tolist())
 
-    print("top {} results (x, fitness estimate):\n {} \n".format(
+    print("top {} results (x, robust_fitness_estimate):\n {} \n".format(
                                                num_best, list(final_results) ))
 
 
